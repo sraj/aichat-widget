@@ -1,0 +1,28 @@
+{
+  "name": "@aichat-widget/ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aichat-widget/shared": "workspace:*",
+    "preact": "^10.20.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

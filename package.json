@@ -1,0 +1,40 @@
+{
+  "name": "aichat-widget-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Production-grade embeddable chat widget with Shadow DOM",
+  "license": "MIT",
+  "packageManager": "pnpm@9.1.0",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:server": "pnpm --filter @aichat-widget/dev-server dev",
+    "dev:demo": "pnpm --filter @aichat-widget/demo dev",
+    "dev:all": "concurrently \"pnpm:dev:server\" \"pnpm:dev:demo\"",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "clean": "turbo run clean && rm -rf node_modules .turbo apps/**/dist packages/**/dist",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "bundle:check": "bash scripts/check-bundle.sh",
+    "bundle:analyze": "cd packages/widget && npx source-map-explorer dist/ai-chat-widget.umd.js",
+    "bundle:visualize": "cd packages/widget && pnpm add -D rollup-plugin-visualizer && pnpm build"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "prettier": "^3.2.5",
+    "turbo": "^1.13.2",
+    "typescript": "^5.4.5"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ]
+}

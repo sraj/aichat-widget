@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Chat Widget - Demo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 2rem;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .header {
+        text-align: center;
+        color: white;
+        margin-bottom: 3rem;
+      }
+
+      .header h1 {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+      }
+
+      .header p {
+        font-size: 1.25rem;
+        opacity: 0.9;
+      }
+
+      .card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .card h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #1f2937;
+      }
+
+      .card p {
+        color: #6b7280;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .config-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #374151;
+      }
+
+      .form-group input,
+      .form-group select {
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 0.875rem;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+
+      .button-group {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      button {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn-primary {
+        background: #3b82f6;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #2563eb;
+      }
+
+      .btn-secondary {
+        background: #6b7280;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background: #4b5563;
+      }
+
+      .btn-success {
+        background: #10b981;
+        color: white;
+      }
+
+      .btn-success:hover {
+        background: #059669;
+      }
+
+      .btn-danger {
+        background: #ef4444;
+        color: white;
+      }
+
+      .btn-danger:hover {
+        background: #dc2626;
+      }
+
+      .code-block {
+        background: #1f2937;
+        color: #f3f4f6;
+        padding: 1.5rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-family: 'Monaco', 'Courier New', monospace;
+        font-size: 0.875rem;
+        line-height: 1.6;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .feature {
+        padding: 1rem;
+        background: #f9fafb;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .feature-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .feature-title {
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 0.25rem;
+      }
+
+      .feature-desc {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      .status {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .status-connected {
+        background: #d1fae5;
+        color: #065f46;
+      }
+
+      .status-disconnected {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🤖 AI Chat Widget</h1>
+        <p>Production-grade embeddable chat widget with Shadow DOM</p>
+      </div>
+
+      <!-- Features -->
+      <div class="card">
+        <h2>✨ Features</h2>
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon">🔒</div>
+            <div class="feature-title">Shadow DOM</div>
+            <div class="feature-desc">Complete style isolation</div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-title">SSE, Fetch SSE & WebSocket</div>
+            <div class="feature-desc">Real-time streaming</div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🎨</div>
+            <div class="feature-title">Customizable</div>
+            <div class="feature-desc">Theme & positioning</div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">📦</div>
+            <div class="feature-title">Tiny Bundle</div>
+            <div class="feature-desc">&lt; 100KB gzipped</div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">♿</div>
+            <div class="feature-title">Accessible</div>
+            <div class="feature-desc">WCAG 2.1 AA</div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🚀</div>
+            <div class="feature-title">Production Ready</div>
+            <div class="feature-desc">Error handling & resilience</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Configuration Playground -->
+      <div class="card">
+        <h2>🎮 Configuration Playground</h2>
+        <p>Customize the widget configuration and see changes in real-time</p>
+
+        <div class="config-section">
+          <div class="form-group">
+            <label for="apiKey">API Key</label>
+            <input type="text" id="apiKey" value="demo-api-key-12345" />
+          </div>
+
+          <div class="form-group">
+            <label for="baseUrl">Base URL</label>
+            <input type="text" id="baseUrl" value="http://localhost:3001" />
+          </div>
+
+          <div class="form-group">
+            <label for="protocol">Protocol</label>
+            <select id="protocol">
+              <option value="sse">SSE (Server-Sent Events)</option>
+              <option value="fetch-sse" selected>Fetch SSE (POST + ReadableStream)</option>
+              <option value="websocket">WebSocket</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="position">Position</label>
+            <select id="position">
+              <option value="bottom-right">Bottom Right</option>
+              <option value="bottom-left">Bottom Left</option>
+              <option value="top-right">Top Right</option>
+              <option value="top-left">Top Left</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="panelMode">Panel Mode</label>
+            <select id="panelMode">
+              <option value="slide-out">Slide Out</option>
+              <option value="popover">Popover</option>
+              <option value="fullscreen">Fullscreen</option>
+            </select>
+          </div>
+
+          <div class="form-group">            <label for="showOverlay">Show Overlay & Focus Trap</label>
+            <select id="showOverlay">
+              <option value="true" selected>Yes (Overlay + Focus Trap)</option>
+              <option value="false">No (Allow Host Interaction)</option>
+            </select>
+            <small style="display: block; margin-top: 4px; color: #666;">
+              With overlay: Dark backdrop, body scroll locked, focus trapped<br>
+              Without overlay: No backdrop, can interact with host page
+            </small>
+          </div>
+
+          <div class="form-group">            <label for="primaryColor">Primary Color</label>
+            <input type="color" id="primaryColor" value="#3b82f6" />
+          </div>
+
+          <div class="form-group">
+            <label for="title">Widget Title</label>
+            <input type="text" id="title" value="AI Assistant" />
+          </div>
+
+          <div class="form-group">
+            <label for="placeholder">Input Placeholder</label>
+            <input type="text" id="placeholder" value="Type your message..." />
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button class="btn-primary" onclick="initializeWidget()">
+            🚀 Initialize Widget
+          </button>
+          <button class="btn-success" onclick="openWidget()">
+            📖 Open Chat
+          </button>
+          <button class="btn-secondary" onclick="closeWidget()">
+            📕 Close Chat
+          </button>
+          <button class="btn-danger" onclick="destroyWidget()">
+            🗑️ Destroy Widget
+          </button>
+          <button class="btn-primary" onclick="sendStreamingTestPrompt()">
+            🧪 Send Streaming Test Prompt
+          </button>
+        </div>
+
+        <p style="margin-top: 1rem;">
+          <strong>Status:</strong>
+          <span id="widgetStatus" class="status status-disconnected">Not Initialized</span>
+        </p>
+      </div>
+
+      <!-- CDN Integration -->
+      <div class="card">
+        <h2>📦 CDN Integration (Script Tag)</h2>
+        <p>Add this to your HTML to embed the widget:</p>
+        <pre class="code-block"><code>&lt;!-- Add widget script --&gt;
+&lt;script src="https://cdn.example.com/ai-chat-widget.js"&gt;&lt;/script&gt;
+
+&lt;!-- Initialize widget --&gt;
+&lt;script&gt;
+  const widget = AIChatWidget.init({
+    apiKey: 'your-api-key',
+    connection: {
+      protocol: 'sse',
+      baseUrl: 'https://api.example.com'
+    },
+    theme: {
+      primaryColor: '#3b82f6'
+    }
+  });
+
+  // Listen to events
+  widget.on('message', (message) => {
+    console.log('New message:', message);
+  });
+&lt;/script&gt;</code></pre>
+      </div>
+
+      <!-- NPM Integration -->
+      <div class="card">
+        <h2>📦 NPM Integration</h2>
+        <p>Install and use in your JavaScript/TypeScript project:</p>
+        <pre class="code-block"><code># Install via npm/pnpm
+pnpm add @aichat-widget/widget
+
+# Or via npm
+npm install @aichat-widget/widget</code></pre>
+
+        <pre class="code-block"><code>import { init } from '@aichat-widget/widget';
+
+const widget = init({
+  apiKey: 'your-api-key',
+  connection: {
+    protocol: 'websocket',
+    baseUrl: 'https://api.example.com'
+  }
+});
+
+// Control the widget programmatically
+widget.open();
+widget.close();
+widget.sendMessage('Hello!');
+
+// Clean up when done
+widget.destroy();</code></pre>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

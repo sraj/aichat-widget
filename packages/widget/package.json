@@ -1,0 +1,40 @@
+{
+  "name": "@aichat-widget/widget",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/ai-chat-widget.umd.js",
+  "module": "./dist/ai-chat-widget.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/ai-chat-widget.es.js",
+      "require": "./dist/ai-chat-widget.umd.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aichat-widget/shared": "workspace:*",
+    "@aichat-widget/ui": "workspace:*",
+    "preact": "^10.20.1"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.8.2",
+    "@types/node": "^20.12.7",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "terser": "^5.48.0",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.10"
+  }
+}
