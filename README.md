@@ -1,49 +1,87 @@
 # 🤖 AI Chat Widget
 
+[![npm version](https://img.shields.io/npm/v/@srajvenkat/aichat-widget)](https://www.npmjs.com/package/@srajvenkat/aichat-widget)
+[![CI](https://github.com/sraj/aichat-widget/actions/workflows/ci.yml/badge.svg)](https://github.com/sraj/aichat-widget/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Production-grade embeddable chat widget built with Shadow DOM, Preact, Tailwind CSS, and Turborepo. Supports EventSource SSE, POST fetch-based SSE, and WebSocket protocols for real-time communication.
 
 ## Features
 
-- Shadow DOM isolation for full style encapsulation
-- Multi-protocol support across EventSource SSE, fetch-SSE, and WebSocket
-- Customizable themes, positioning, and panel behavior
-- Accessible UI with keyboard navigation and focus management
-- Production-oriented defaults with reconnection and error handling
-- TypeScript-first packages and shared validation
-- Responsive layout that works on desktop, tablet, and mobile
-- Optional message persistence for user continuity
-- Abortable fetch-based streaming with citations-first delivery
+- **Shadow DOM isolation** for full style encapsulation
+- **Multi-protocol** — EventSource SSE, fetch-SSE, and WebSocket
+- **Customizable** themes, positioning, and panel behavior
+- **Accessible** — WCAG 2.1 AA, keyboard navigation, focus management
+- **TypeScript-first** packages with shared Zod validation
+- **Responsive** — desktop, tablet, and mobile
+- **Resilient** — reconnection with exponential backoff, error boundaries
+- **Lightweight** — < 45 KB gzipped
 
 ## Install
 
 ```bash
-pnpm install
+npm install @srajvenkat/aichat-widget
+# or
+pnpm add @srajvenkat/aichat-widget
 ```
 
 ## Quick Start
 
-```bash
-pnpm dev:all
+```typescript
+import { init } from '@srajvenkat/aichat-widget';
+
+init({
+  apiKey: 'your-api-key',
+  connection: {
+    protocol: 'sse',
+    baseUrl: 'https://api.example.com',
+  },
+  theme: {
+    primaryColor: '#3b82f6',
+  },
+  position: {
+    position: 'bottom-right',
+  },
+});
 ```
 
-For a fetch-based SSE backend, use:
+```html
+<!-- Or via CDN -->
+<script src="https://unpkg.com/@srajvenkat/aichat-widget"></script>
+<script>
+  AIChatWidget.init({
+    apiKey: 'your-api-key',
+    connection: {
+      protocol: 'fetch-sse',
+      baseUrl: 'https://api.example.com',
+      streamEndpoint: '/api/chat/ask/stream',
+    },
+  });
+</script>
+```
 
-```javascript
-connection: {
-  protocol: 'fetch-sse',
-  baseUrl: 'https://api.example.com',
-  streamEndpoint: '/api/chat/ask/stream'
-}
+## Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start dev server + demo
+pnpm dev:all
+
+# Run checks
+pnpm lint
+pnpm type-check
+pnpm --filter @aichat-widget/shared test
 ```
 
 ## Documentation
 
-- [docs/README.md](docs/README.md)
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
-- [docs/SECURITY.md](docs/SECURITY.md)
-- [docs/PERFORMANCE.md](docs/PERFORMANCE.md)
-- [packages/widget/README.md](packages/widget/README.md)
+- [Widget API](packages/widget/README.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Security](docs/SECURITY.md)
+- [Performance](docs/PERFORMANCE.md)
 
 ## License
 
-MIT
+MIT © [Suman Raj Venkatesan](https://github.com/sraj)

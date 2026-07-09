@@ -1,4 +1,4 @@
-import { init } from '@aichat-widget/widget';
+import { init } from '@srajvenkat/aichat-widget';
 
 let widgetInstance: ReturnType<typeof init> | null = null;
 
