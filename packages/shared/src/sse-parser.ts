@@ -107,9 +107,9 @@ export class SseParser {
    */
   flush(): SseEvent | null {
     if (this.buffer.length > 0) {
-      // Treat the remaining buffer as one last line
-      const results = this.feed('\n'); // force line termination
-      return results[0] ?? null;
+      // Complete the last line, then force-dispatch the accumulated event
+      this.feed('\n');
+      return this.dispatch();
     }
     return this.dispatch() ?? null;
   }
