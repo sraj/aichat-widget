@@ -19,8 +19,8 @@ const WIDGET_ATTR_CONFIG = 'data-config';
  */
 class AIChatWidgetElement extends HTMLElement {
   private _shadowRoot!: ShadowRoot;
-  private config!: WidgetConfig;
-  private events!: EventEmitter<WidgetEventMap>;
+  config!: WidgetConfig;
+  events!: EventEmitter<WidgetEventMap>;
   private logger!: Logger;
   private _isOpen = false;
 
@@ -43,8 +43,8 @@ class AIChatWidgetElement extends HTMLElement {
         this.renderError('Invalid configuration');
         return;
       }
-    } else if ((this as any)._config) {
-      this.config = (this as any)._config;
+    } else if (this.config) {
+      this.config = (this as unknown as { _config?: WidgetConfig })._config ?? this.config;
     } else {
       this.logger.error('No configuration provided');
       this.renderError('No configuration provided');
@@ -52,7 +52,7 @@ class AIChatWidgetElement extends HTMLElement {
     }
 
     this.logger.setEnabled(this.config.debug || false);
-    this.events = (this as any)._events || new EventEmitter<WidgetEventMap>();
+    this.events = (this as unknown as { _events?: EventEmitter<WidgetEventMap> })._events || new EventEmitter<WidgetEventMap>();
 
     // Inject styles into shadow DOM
     const styleElement = document.createElement('style');
@@ -162,7 +162,9 @@ export function initWidget(config: unknown): WidgetInstance {
     validatedConfig = validateConfig(config);
   } catch (error) {
     logger.error('Invalid configuration:', error);
-    throw new Error(`Invalid widget configuration: ${(error as Error).message}`);
+    const wrapped = new Error(`Invalid widget configuration: ${(error as Error).message}`);
+    (wrapped as Error & { cause?: unknown }).cause = error;
+    throw wrapped;
   }
 
   logger.setEnabled(validatedConfig.debug || false);
@@ -176,11 +178,11 @@ export function initWidget(config: unknown): WidgetInstance {
 
   // Create and append widget element
   const widgetElement = document.createElement(WIDGET_TAG) as AIChatWidgetElement;
-  (widgetElement as any)._config = validatedConfig;
+  widgetElement.config = validatedConfig;
 
   // Create event emitter
   const events = new EventEmitter<WidgetEventMap>();
-  (widgetElement as any)._events = events;
+  widgetElement.events = events;
 
   // Append to body
   document.body.appendChild(widgetElement);

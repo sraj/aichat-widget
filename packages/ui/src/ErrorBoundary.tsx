@@ -3,6 +3,7 @@ import { Component, type ComponentChildren } from 'preact';
 interface ErrorBoundaryProps {
   children: ComponentChildren;
   fallback?: ComponentChildren;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onError?: (error: Error, errorInfo: any) => void;
 }
 
@@ -20,6 +21,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     error: null,
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   componentDidCatch(error: Error, errorInfo: any): void {
     console.error('Widget Error Boundary caught error:', error, errorInfo);
     

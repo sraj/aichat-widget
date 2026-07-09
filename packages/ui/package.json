@@ -16,7 +16,8 @@
     "build": "tsc -b",
     "dev": "tsc --watch",
     "clean": "rm -rf dist",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src/"
   },
   "dependencies": {
     "@aichat-widget/shared": "workspace:*",

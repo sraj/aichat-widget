@@ -1,7 +1,9 @@
 /**
  * Simple event emitter for type-safe event handling
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class EventEmitter<T extends Record<string, any> = Record<string, (...args: any[]) => void>> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private handlers: Map<keyof T, Set<(...args: any[]) => void>> = new Map();
 
   on<K extends keyof T>(event: K, handler: T[K]): () => void {
@@ -46,21 +48,20 @@ export class EventEmitter<T extends Record<string, any> = Record<string, (...arg
 /**
  * Debounce function calls
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function debounce<T extends (...args: any[]) => any>(
   func: T,
   wait: number
 ): (...args: Parameters<T>) => void {
   let timeout: ReturnType<typeof setTimeout> | null = null;
 
-  return function (this: any, ...args: Parameters<T>) {
-    const context = this;
-
+  return function (this: unknown, ...args: Parameters<T>) {
     if (timeout) {
       clearTimeout(timeout);
     }
 
     timeout = setTimeout(() => {
-      func.apply(context, args);
+      func.apply(this, args);
       timeout = null;
     }, wait);
   };
@@ -69,17 +70,16 @@ export function debounce<T extends (...args: any[]) => any>(
 /**
  * Throttle function calls
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function throttle<T extends (...args: any[]) => any>(
   func: T,
   limit: number
 ): (...args: Parameters<T>) => void {
   let inThrottle = false;
 
-  return function (this: any, ...args: Parameters<T>) {
-    const context = this;
-
+  return function (this: unknown, ...args: Parameters<T>) {
     if (!inThrottle) {
-      func.apply(context, args);
+      func.apply(this, args);
       inThrottle = true;
       setTimeout(() => {
         inThrottle = false;
@@ -149,9 +149,9 @@ export function calculateBackoff(
 /**
  * Deep merge objects
  */
-export function deepMerge<T extends Record<string, any>>(
+export function deepMerge<T extends Record<string, unknown>>(
   target: T,
-  ...sources: Array<Partial<T> | Record<string, any>>
+  ...sources: Array<Partial<T> | Record<string, unknown>>
 ): T {
   if (!sources.length) return target;
 
@@ -159,7 +159,7 @@ export function deepMerge<T extends Record<string, any>>(
   if (!source) return target;
 
   // Create a mutable copy for merging
-  const result = { ...target } as Record<string, any>;
+  const result = { ...target } as Record<string, unknown>;
 
   for (const key in source) {
     const sourceValue = source[key];
@@ -175,8 +175,8 @@ export function deepMerge<T extends Record<string, any>>(
   return deepMerge(result as T, ...sources);
 }
 
-function isObject(item: any): item is Record<string, any> {
-  return item && typeof item === 'object' && !Array.isArray(item);
+function isObject(item: unknown): item is Record<string, unknown> {
+  return typeof item === 'object' && item !== null && !Array.isArray(item);
 }
 
 /**
@@ -296,25 +296,25 @@ export class Logger {
     this.enabled = enabled;
   }
 
-  debug(...args: any[]): void {
+  debug(...args: unknown[]): void {
     if (this.enabled) {
       console.debug(this.prefix, ...args);
     }
   }
 
-  info(...args: any[]): void {
+  info(...args: unknown[]): void {
     if (this.enabled) {
       console.info(this.prefix, ...args);
     }
   }
 
-  warn(...args: any[]): void {
+  warn(...args: unknown[]): void {
     if (this.enabled) {
       console.warn(this.prefix, ...args);
     }
   }
 
-  error(...args: any[]): void {
+  error(...args: unknown[]): void {
     console.error(this.prefix, ...args);
   }
 }
