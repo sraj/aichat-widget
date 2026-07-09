@@ -4,8 +4,9 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
+    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "paths": {
-      "@aichat-widget/shared": ["../shared/src"]
+      "@aichat-widget/shared": ["../shared/dist"]
     }
   },
   "include": ["src/**/*"],
