@@ -4,6 +4,13 @@
 [![CI](https://github.com/sraj/aichat-widget/actions/workflows/ci.yml/badge.svg)](https://github.com/sraj/aichat-widget/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+<div align="center">
+  <img src="docs/images/widget-closed.png" alt="Widget toggle button" width="400" />
+  <img src="docs/images/widget-open.png" alt="Widget panel open" width="400" />
+  <br />
+  <img src="docs/images/widget-chat.png" alt="Widget chat conversation" width="400" />
+</div>
+
 Production-grade embeddable chat widget built with Shadow DOM, Preact, Tailwind CSS, and Turborepo. Supports EventSource SSE, POST fetch-based SSE, and WebSocket protocols for real-time communication.
 
 ## Features
