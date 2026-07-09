@@ -36,7 +36,7 @@ importers:
 
   apps/demo:
     dependencies:
-      '@aichat-widget/widget':
+      '@srajvenkat/aichat-widget':
         specifier: workspace:*
         version: link:../../packages/widget
     devDependencies:
@@ -93,17 +93,13 @@ importers:
         version: 5.9.3
 
   packages/widget:
-    dependencies:
+    devDependencies:
       '@aichat-widget/shared':
         specifier: workspace:*
         version: link:../shared
       '@aichat-widget/ui':
         specifier: workspace:*
         version: link:../ui
-      preact:
-        specifier: ^10.20.1
-        version: 10.29.3
-    devDependencies:
       '@preact/preset-vite':
         specifier: ^2.8.2
         version: 2.10.5(@babel/core@7.29.7)(preact@10.29.3)(rollup@4.62.2)(vite@5.4.21(@types/node@20.19.43)(terser@5.48.0))
@@ -116,6 +112,9 @@ importers:
       postcss:
         specifier: ^8.4.38
         version: 8.5.16
+      preact:
+        specifier: ^10.20.1
+        version: 10.29.3
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.19(tsx@4.22.4)

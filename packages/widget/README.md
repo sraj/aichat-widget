@@ -31,11 +31,11 @@ Production-grade embeddable chat UI widget with Shadow DOM isolation, supporting
 ### NPM
 
 ```bash
-pnpm add @aichat-widget/widget
+pnpm add @srajvenkat/aichat-widget
 ```
 
 ```typescript
-import { init } from '@aichat-widget/widget';
+import { init } from '@srajvenkat/aichat-widget';
 
 init({
   apiKey: 'your-api-key',

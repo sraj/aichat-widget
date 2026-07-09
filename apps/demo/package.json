@@ -10,7 +10,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@aichat-widget/widget": "workspace:*"
+    "@srajvenkat/aichat-widget": "workspace:*"
   },
   "devDependencies": {
     "vite": "^5.2.10"
