@@ -41,7 +41,7 @@ export function ChatPanel({
 
   // Determine panel positioning based on mode
   const getPanelClasses = () => {
-    const baseClasses = `fixed flex flex-col widget-shadow transition-all duration-300 z-[${Z_INDEX.PANEL}]`;
+    const baseClasses = `fixed flex flex-col widget-shadow transition-all duration-300`;
 
     switch (mode) {
       case 'slide-out':
@@ -63,7 +63,8 @@ export function ChatPanel({
       {/* Overlay/Backdrop */}
       {showOverlay && isOpen && (
         <div
-          class={`fixed inset-0 bg-black bg-opacity-30 transition-opacity duration-300 z-[${Z_INDEX.OVERLAY}]`}
+          class="fixed inset-0 bg-black bg-opacity-30 transition-opacity duration-300"
+          style={{ zIndex: Z_INDEX.OVERLAY }}
           onClick={onClose}
           aria-hidden="true"
         />
@@ -73,7 +74,7 @@ export function ChatPanel({
       <div
         ref={focusTrapRef}
         class={panelClasses}
-        style={{ backgroundColor: 'var(--widget-background-color)' }}
+        style={{ backgroundColor: 'var(--widget-background-color)', zIndex: Z_INDEX.PANEL }}
         role="dialog"
         aria-modal="true"
         aria-label={title}

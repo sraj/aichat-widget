@@ -5,10 +5,10 @@ import { z } from 'zod';
  * Ensures proper stacking of widget components
  */
 export const Z_INDEX = {
-  OVERLAY: 999997,
-  PANEL: 999998,
-  TOGGLE: 999999,
-  ERROR: 999999,
+  OVERLAY: 2147483645,
+  PANEL: 2147483646,
+  TOGGLE: 2147483647,
+  ERROR: 2147483647,
 } as const;
 
 /**
